@@ -1,6 +1,7 @@
 package com.sparta.newsfeedapp.entity;
 
 import com.sparta.newsfeedapp.NewsfeedAppApplication;
+import com.sparta.newsfeedapp.dto.comment.CommentCreateRequestDto;
 import com.sparta.newsfeedapp.dto.post.PostRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EntityTest {
 
     User user = new User();
+    Post post = new Post();
 
     @Test
     @DisplayName("User Entity 검사")
@@ -46,9 +48,26 @@ public class EntityTest {
         // when
         PostRequestDto requestDto = new PostRequestDto(content);
         Post post = new Post(requestDto, user);
+        this.post = post;
 
         // then
         assertEquals("테스트내용", post.getContent());
+    }
+
+    @Test
+    @DisplayName("Comment Entity 검사")
+    public void commentEntityTest() {
+        // given
+        String content = "테스트";
+        User user = this.user;
+        Post post = this.post;
+
+        // when
+        CommentCreateRequestDto requestDto = new CommentCreateRequestDto(content);
+        Comment comment = new Comment(requestDto, user, post);
+
+        // then
+        assertEquals("테스트", comment.getContent());
     }
 
 
